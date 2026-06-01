@@ -655,21 +655,6 @@
   </div>
 </section>
 
-<script>
-  // Scroll animation observer — same pattern as the rest of the site
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-      } else {
-        entry.target.classList.remove('visible');
-      }
-    });
-  }, { threshold: 0.12 });
-
-  document.querySelectorAll('.fade-in, .scroll-animate').forEach(el => observer.observe(el));
-</script>
-
   <footer>
     <p>© 2026 Frodolfre Rodrigo Lazo V. All rights reserved.</p>
   </footer>
@@ -743,11 +728,11 @@
       watcher.observe(item);
     });
 
-    <!-- --------------------------------------------------
-       4. SKILL BAR ANIMATION
-       When skill cards scroll into view, the progress
-       bars animate from 0% to their real width.
-    -------------------------------------------------- -->
+    // --------------------------------------------------
+    // 4. SKILL BAR ANIMATION
+    // When skill cards scroll into view, the progress
+    // bars animate from 0% to their real width.
+    // --------------------------------------------------
 
     // Get all the colored fill bars
     const skillBars = document.querySelectorAll('.skill-bar-fill');
@@ -779,6 +764,19 @@
     skillBars.forEach(function(bar) {
       barWatcher.observe(bar);
     });
+
+    // Scroll animation observer (repeating — removes visible when out of view)
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        } else {
+          entry.target.classList.remove('visible');
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.scroll-animate').forEach(el => observer.observe(el));
   </script>
 
 </body>
